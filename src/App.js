@@ -35,6 +35,7 @@ function App() {
     }
   }
 
+
   const onMouseOverLogo = () => {
     setWelcomeState(false)
   }
@@ -47,7 +48,20 @@ function App() {
         button.addEventListener('click', function onClick(event){
           document.body.style.background = "#E788BB";
         });       
+
+  const btns1 = document.getElementById("btns1");
+  if(btns1){
+  btns1.addEventListener('click', cambiarFondo);
   }
+
+  function cambiarFondo() {
+    document.getElementById("sucursal1").style.background = "#A1E2D2"
+    document.getElementById("sucursal2").style.background = "#FF828B"
+    document.getElementById("sucursal3").style.background = "#FFD872"
+    document.getElementById("sucursal4").style.background = "#FFA23A" 
+
+  }
+  
 
   return (
     <div >
@@ -56,6 +70,7 @@ function App() {
         <div style={{ padding:"5px", display:"flex", justifyContent:"center"}}>
           <img src="https://images.vexels.com/media/users/3/239034/isolated/preview/2011ded47041cf9ff35bb6da51dae22f-camion-2.png" alt="logo" width={"150px"}  onMouseOver={onMouseOverLogo}/>
         </div>
+
         <div style={{textAlign:"center", background:"#A93226", color:"white", padding:"10px"}} hidden={welcomeState}>BIENVENIDOS</div>
       </div>
       <Typography variant="h3" component="div" sx={{ display:"flex", justifyContent:"center", pb:2}}>Valor a Pagar</Typography>
@@ -87,6 +102,29 @@ function App() {
 
             <Typography variant="p" component="div">Usted debe pagar: ${valorAPagar} </Typography>
 
+      <div>
+        <h3>Información Sucursales</h3>
+        <table>
+          <tr>
+            <th>Guayaquil</th>
+            <th>Cuenca</th>
+            <th>Tena</th>
+            <th>Cotopaxi</th>
+          </tr>
+          <tr>
+            <td>
+                <p id="sucursal1">GUAYAQUIL_29 AVA	29 AVA E./ VENEZUELA Y COLOMBIA</p></td>
+                <td>
+                <p id="sucursal2">CUENCA_AMERICAS	AV DE LAS AMERICAS Y NICOLAS ROCHA</p></td>
+                <td>
+                <p id="sucursal3">TENA_PRINCIPAL	AV. PANO Y VICTOR HUGO SAN MIGUEL</p></td>
+                <td>
+                <p id="sucursal4">LA MANA_AV. 19 DE MAYO	AV. 19 DE MAYO Y AMERICA</p></td>
+          </tr>
+        </table>
+              
+                <button id="btns1">Cambiar fondo</button>
+      </div>
 
           </FormControl>
           
