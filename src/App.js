@@ -1,27 +1,53 @@
 import React, { useState } from "react";
-import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/500.css';
 import Typography from '@mui/material/Typography';
+import NavBar from "./components/NavBar";
+import { Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import { Box } from "@mui/system";
 
 function App() {
-  const [state, setState] = useState(true);
+  const [welcomeState, setWelcomeState] = useState(true);
 
-  const [valorAPagar, setValorAPagar] = useState(0)
+  const [valorAPagar, setValorAPagar] = useState(0);
+
+  const [leavingState, setLeavingState] = useState(true)
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(e.target.destino.value === "Guayaquil"){
-      setValorAPagar(e.target.peso.value * 3)
-    }
-    if(e.target.destino.value === "Cuenca"){
-      setValorAPagar(e.target.peso.value * 5)
-    }
-    if(e.target.destino.value === "Tena"){
-      setValorAPagar(e.target.peso.value * 2)
-    }
-    if(e.target.destino.value === "Cotopaxi"){
-      setValorAPagar(e.target.peso.value * 2.50)
+    let destino = e.target.destino.value;
+    let peso = e.target.peso.value;
+
+    switch (destino) {
+      case "Guayaquil":
+        setValorAPagar(peso * 3);
+        break;
+      case "Cuenca":
+        setValorAPagar(peso * 5);
+        break;
+      case "Tena":
+        setValorAPagar(peso * 2);
+        break;
+      case "Cotopaxi":
+        setValorAPagar(peso * 2.50);
+        break;
+      default:
+        break;
     }
   }
+
+
+  const onMouseOverLogo = () => {
+    setWelcomeState(false)
+  }
+  const onMouseOverLeaving = () => {
+    setLeavingState(false)
+  }
+
+  const cambioColor = () => {
+    let button = document.getElementById('mybutton');
+        button.addEventListener('click', function onClick(event){
+          document.body.style.background = "#E788BB";
+        });       
 
   const btns1 = document.getElementById("btns1");
   if(btns1){
@@ -33,37 +59,49 @@ function App() {
     document.getElementById("sucursal2").style.background = "#FF828B"
     document.getElementById("sucursal3").style.background = "#FFD872"
     document.getElementById("sucursal4").style.background = "#FFA23A" 
+
   }
   
 
   return (
-    <div className="container" >
-        <div className="navbar" sx={{display:"flex", flexDirection:"row", width:"100%"}}>
-          <div style={{borderBottom:"1px solid gray", padding:"5px",background: "linear-gradient(90deg, rgba(121,9,9,0.7679446778711485) 0%, rgba(10,0,36,1) 48%, rgba(0,82,255,1) 100%)", display:"flex", justifyContent:"center"}}>
-            <img src="https://basc-guayaquil.org/wp-content/uploads/2022/03/Logotipo-Transpchevez-PNG.png" alt="logo" width={"150px"}  onMouseOver={()=>setState(false)}/>
-          </div>
-          <div style={{textAlign:"center", background:"#A93226", color:"white", padding:"10px"}} hidden={state}>BIENVENIDOS</div>
+    <div >
+      <NavBar onMouseOver={onMouseOverLogo}/>
+      <div className="navbar" sx={{display:"flex", flexDirection:"row", width:"100%"}}>
+        <div style={{ padding:"5px", display:"flex", justifyContent:"center"}}>
+          <img src="https://images.vexels.com/media/users/3/239034/isolated/preview/2011ded47041cf9ff35bb6da51dae22f-camion-2.png" alt="logo" width={"150px"}  onMouseOver={onMouseOverLogo}/>
         </div>
-      <div>
-        <h3>Valor a Pagar</h3>
-        <form onSubmit={handleSubmit} >
-          <label for="peso">Peso de la carga </label>
-          <input type="number" placeholder="Ingrese el peso de la carga" name="peso"/> Kg<br />
-          <label for="origen">Lugar de origen </label>
-          <input type="text" placeholder="Ingrese el peso de la carga" name="origen" value="Quito"/><br/>
-          <label for="destino">Lugar de destino </label>
-          <select  placeholder="Escoja el destino" name="destino">
-            <option value="Guayaquil">Guayaquil</option>
-            <option value="Cuenca">Cuenca</option>
-            <option value="Tena">Tena</option>
-            <option value="Cotopaxi">Cotopaxi</option>
-          </select><br/>
-          <button type="submit" className="btn btn-success" >Calcular</button>
-          <p>Usted debe pagar: ${valorAPagar} </p>
 
-        </form>
-        
+        <div style={{textAlign:"center", background:"#A93226", color:"white", padding:"10px"}} hidden={welcomeState}>BIENVENIDOS</div>
       </div>
+      <Typography variant="h3" component="div" sx={{ display:"flex", justifyContent:"center", pb:2}}>Valor a Pagar</Typography>
+      <Box sx={{
+        display: 'flex',
+        justifyContent: 'center',
+      }}>
+        <Box sx={{
+          width: 300,
+          height: 300,
+        }}>
+          <FormControl fullWidth onSubmit={handleSubmit} >
+            <InputLabel id="select-destino">Destino</InputLabel>
+            <Select
+              labelId="select-destino"
+              id="destino"
+              name="destino"           
+              label="Destino" 
+            >
+              <MenuItem value={"Guayaquil"}>Guayaquil</MenuItem>
+              <MenuItem value={"Cuenca"}>Cuenca</MenuItem>
+              <MenuItem value={"Tena"}>Tena</MenuItem>
+              <MenuItem value={"Cotopaxi"}>Cotopaxi</MenuItem>
+            </Select><br/>
+            <TextField id="outlined-basic" label="Peso de carga (kg)" variant="outlined" type="number" name="peso"/><br/>
+            <Typography variant="h6" component="div">Lugar de origen: Quito</Typography><br/>
+
+            <Button type="submit" variant="contained" color="success">Calcular</Button>
+
+            <Typography variant="p" component="div">Usted debe pagar: ${valorAPagar} </Typography>
+
       <div>
         <h3>Información Sucursales</h3>
         <table>
@@ -88,6 +126,12 @@ function App() {
                 <button id="btns1">Cambiar fondo</button>
       </div>
 
+          </FormControl>
+          
+        </Box>
+      </Box>
+      <Typography variant="h2" component="div" onMouseOver={onMouseOverLeaving}>Gracias por preferirnos</Typography>
+      <Typography variant="h3" component="div" hidden={leavingState}>Vuelva pronto!!</Typography>
     </div>
   );
 }
