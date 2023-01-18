@@ -23,13 +23,18 @@ function App() {
     }
   }
 
-  const cambioColor = () => {
-    let button = document.getElementById('mybutton');
-        button.addEventListener('click', function onClick(event){
-          document.body.style.background = "#E788BB";
-        });
-        
+  const btns1 = document.getElementById("btns1");
+  if(btns1){
+  btns1.addEventListener('click', cambiarFondo);
   }
+
+  function cambiarFondo() {
+    document.getElementById("sucursal1").style.background = "#A1E2D2"
+    document.getElementById("sucursal2").style.background = "#FF828B"
+    document.getElementById("sucursal3").style.background = "#FFD872"
+    document.getElementById("sucursal4").style.background = "#FFA23A" 
+  }
+  
 
   return (
     <div className="container" >
@@ -39,8 +44,8 @@ function App() {
           </div>
           <div style={{textAlign:"center", background:"#A93226", color:"white", padding:"10px"}} hidden={state}>BIENVENIDOS</div>
         </div>
-    <div>
-      <h3>Valor a Pagar</h3>
+      <div>
+        <h3>Valor a Pagar</h3>
         <form onSubmit={handleSubmit} >
           <label for="peso">Peso de la carga </label>
           <input type="number" placeholder="Ingrese el peso de la carga" name="peso"/> Kg<br />
@@ -58,6 +63,29 @@ function App() {
 
         </form>
         
+      </div>
+      <div>
+        <h3>Información Sucursales</h3>
+        <table>
+          <tr>
+            <th>Guayaquil</th>
+            <th>Cuenca</th>
+            <th>Tena</th>
+            <th>Cotopaxi</th>
+          </tr>
+          <tr>
+            <td>
+                <p id="sucursal1">GUAYAQUIL_29 AVA	29 AVA E./ VENEZUELA Y COLOMBIA</p></td>
+                <td>
+                <p id="sucursal2">CUENCA_AMERICAS	AV DE LAS AMERICAS Y NICOLAS ROCHA</p></td>
+                <td>
+                <p id="sucursal3">TENA_PRINCIPAL	AV. PANO Y VICTOR HUGO SAN MIGUEL</p></td>
+                <td>
+                <p id="sucursal4">LA MANA_AV. 19 DE MAYO	AV. 19 DE MAYO Y AMERICA</p></td>
+          </tr>
+        </table>
+              
+                <button id="btns1">Cambiar fondo</button>
       </div>
 
     </div>
