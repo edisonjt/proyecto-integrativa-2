@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import '@fontsource/roboto/300.css';
 import { Avatar } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 
 const NavBar = (props) => {
@@ -15,7 +16,7 @@ const NavBar = (props) => {
     <Box sx={{ display: 'flex' }}>
       <AppBar component="nav">
         <Toolbar>
-          <IconButton onMouseOver={props.onMouseOver} sx={{ p: 2 }}>
+          <IconButton href='/' onMouseOver={props.onMouseOver} sx={{ p: 2 }}>
             <Avatar alt="Logo" src="https://images.vexels.com/media/users/3/239034/isolated/preview/2011ded47041cf9ff35bb6da51dae22f-camion-2.png" />
           </IconButton>
           <Typography
@@ -26,16 +27,11 @@ const NavBar = (props) => {
             ECUATRANSPORT
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>  
-            <Button size='large'  key={'ValorPagar'} sx={{ color: '#fff' }}>Valor a Pagar</Button>
-            <Button size='large'  key={'Sucursales'} sx={{ color: '#fff' }}>Sucursales</Button>
-            <Button size='large'  key={'ValorPagar'} sx={{ color: '#fff' }}>Cerrar</Button>
- 
+            <Link to="/ValorAPagar"><Button size='large'  key={'ValorPagar'} sx={{ color: '#fff' }}>Valor a Pagar</Button></Link>
+            <Link to="/Sucursales"><Button  size='large'  key={'Sucursales'} sx={{ color: '#fff' }}>Sucursales</Button></Link>
           </Box>
         </Toolbar>
       </AppBar>
-      <Box component="main" sx={{ p: 0 }}>
-        <Toolbar />
-      </Box>
     </Box>
   );
 }
